@@ -1,0 +1,16 @@
+{
+    "name": "stz184/captcha-bundle",
+    "description": "Very simple and ease to use implementation of \"captcha\" form type for the Symfony2 form component.",
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/framework-bundle": "~2.1",
+        "symfony/form": "~2.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vladimir Ivanov",
+            "email": "ivanov.bg@gmail.com"
+        }
+    ]
+}
