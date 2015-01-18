@@ -1,0 +1,15 @@
+{% block captcha_widget %}
+    {% spaceless %}
+        <img id="{{ image_id }}" src="{{ path('stz184_captcha_homepage') }}" alt="" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" />
+        {% if reload %}
+            <script type="text/javascript">
+                function reloadCaptcha{{ image_id }}() {
+                    var img = document.getElementById('{{ image_id }}');
+                    img.src = '{{ path('stz184_captcha_homepage') }}?n=' + Math.random();
+                }
+            </script>
+            <a class="captcha_reload" href="javascript:reloadCaptcha{{ image_id }}();">{{ 'Renew'|trans({}, 'captcha') }}</a>
+        {% endif %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock %}

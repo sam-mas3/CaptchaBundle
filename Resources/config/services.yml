@@ -1,0 +1,10 @@
+services:
+    stz184_captcha.generator:
+        class: stz184\CaptchaBundle\Generator\Captcha
+        arguments: [@file_locator, %stz184_captcha.config%]
+
+    stz184_captcha.form.type.captcha:
+        class: stz184\CaptchaBundle\Form\Type\CaptchaType
+        arguments: [@session, @translator, %stz184_captcha.config%]
+        tags:
+            - { name: form.type, alias: captcha }
