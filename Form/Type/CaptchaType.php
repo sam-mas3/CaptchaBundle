@@ -65,10 +65,10 @@ class CaptchaType extends AbstractType
 	{
 		$view->vars = array_merge($view->vars, array(
 			'value'     		=> '',
-			'image_id'			=> uniqid('captcha_'),
+			'image_id'		=> uniqid('captcha_'),
 			'captcha_width' 	=> $this->width,
 			'captcha_height' 	=> $this->height,
-			'reload' 			=> true
+			'reload' 		=> true
 		));
 	}
 
@@ -78,17 +78,13 @@ class CaptchaType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$expectedCode = $this->session->get($this->sessionKey);
-
-		$builder->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($expectedCode) {
-			$form			= $event->getForm();
+		$errorMessage = $this->translator->trans('You have submitted an invalid security code', array(), 'captcha');
+		$builder->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($expectedCode, $errorMessage) {
+			$form		= $event->getForm();
 			$submittedCode	= $event->getData();
 
 			if (!($submittedCode && is_string($submittedCode) && mb_strtolower($submittedCode) == mb_strtolower($expectedCode))) {
-				$form->addError(
-					new FormError(
-						$this->translator->trans('You have submitted an invalid security code', array(), 'captcha')
-					)
-				);
+				$form->addError(new FormError($errorMessage));
 			}
 		});
 	}
